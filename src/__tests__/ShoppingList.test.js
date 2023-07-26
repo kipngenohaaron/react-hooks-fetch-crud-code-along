@@ -35,15 +35,15 @@ test("adds a new item to the list when the ItemForm is submitted", async () => {
 
   const dessertCount = screen.queryAllByText(/Dessert/).length;
 
-  fireEvent.change(screen.queryByLabelText(/Name/), {
+  fireEvent.change(screen.queryByLabelText(/Name:/), {
     target: { value: "Ice Cream" },
   });
 
-  fireEvent.change(screen.queryByLabelText(/Category/), {
+  fireEvent.change(screen.queryByLabelText(/Category:/), {
     target: { value: "Dessert" },
   });
 
-  fireEvent.submit(screen.queryByText(/Add to List/));
+  fireEvent.click(screen.getByText(/Add to List/));
 
   const iceCream = await screen.findByText(/Ice Cream/);
   expect(iceCream).toBeInTheDocument();
@@ -75,9 +75,7 @@ test("updates the isInCart status of an item when the Add/Remove from Cart butto
   rerender(<ShoppingList />);
 
   const rerenderedAddButtons = await screen.findAllByText(/Add to Cart/);
-  const rerenderedRemoveButtons = await screen.findAllByText(
-    /Remove From Cart/
-  );
+  const rerenderedRemoveButtons = await screen.findAllByText(/Remove From Cart/);
 
   expect(rerenderedAddButtons.length).toBe(2);
   expect(rerenderedRemoveButtons.length).toBe(1);
